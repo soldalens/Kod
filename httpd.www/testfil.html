@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Utskrift</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Utskriftsstilar */
+    @media print {
+      body {
+        margin: 0;
+        padding: 10mm;
+        font-size: 12px;
+      }
+      /* Sidhuvud */
+      ::before {
+        content: "ProAnalys - Professionell Personlighetsanalys";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Höjden på sidhuvudet */
+        background-color: #ffffff;
+        color: #002060;
+        text-align: center;
+        font-size: 12px;
+        line-height: 50px;
+        font-weight: normal;
+        z-index: 9999;
+      }
+      /* Sidfot */
+      ::after {
+        content: "https://proanalys.se/proanalys";
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        background-color: #ffffff;
+        color: #002060;
+        text-align: center;
+        font-size: 12px;
+        line-height: 30px;
+        font-weight: normal;
+      }
+      .line-break {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .btn-close {
+        display: none !important;
+      }
+      .page-break {
+        page-break-after: always;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 10mm;
+        box-shadow: none;
+      }
+      br.print-only {
+        display: block !important;
+      }
+      .progress-bar {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: center !important;
+        align-items: bottom;
+        background-color: white;
+      }
+      .modal-header h2,
+      .modal-header h3 {
+        color: black;
+        font-size: 20px;
+        margin: 0;
+      }
+      /* Färger för staplar */
+      .bg-extrovert-dark { background-color: #FF9C00 !important; color: black !important; }
+      .bg-extrovert-light { background-color: #FFE2C5 !important; }
+      
+      .bg-sensing-dark { background-color: #00B100 !important; color: white !important; }
+      .bg-sensing-light { background-color: #E6FFE6 !important; }
+      
+      .bg-thinking-dark { background-color: #00E2EF !important; color: black !important; }
+      .bg-thinking-light { background-color: #D5FFFF !important; }
+      
+      .bg-judging-dark { background-color: #4F57FF !important; color: white !important; }
+      .bg-judging-light { background-color: #D4EEFF !important; }
+      
+      /* Anpassa innehållet för A4 */
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+      
+      .progress-container {
+        margin-bottom: 10px;
+      }
+      
+      .modal-footer {
+        display: none;
+      }
+      
+      .modal-header {
+        text-align: center;
+        border-bottom: none;
+      }
+    }
+    
+    /* Standardstilar (för skärmvisning) */
+    br.print-only {
+      display: none;
+    }
+    .icon-btn {
+      background: none;
+      border: none;
+      outline: none !important;
+      box-shadow: none !important;
+      padding: 0;
+      cursor: pointer;
+      font-size: 10px;
+      color: inherit;
+    }
+    .custom-modal {
+      font-family: Arial, sans-serif;
+    }
+    .custom-modal-body {
+      color: #333;
+    }
+    .custom-modal-footer button {
+      background-color: #214A81;
+      color: #ffffff;
+    }
+    .icon-btn:hover,
+    .icon-btn:focus {
+      background: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal-content custom-modal">
+    <!-- Rubrik i modalen -->
+    <div class="modal-header">
+      <h2>Exempel Modalrubrik</h2>
+    </div>
+    
+    <!-- Modalens innehåll -->
+    <div class="custom-modal-body">
+      <p>
+        Detta är ett exempel på innehållet i modal-fönstret. Här kan du inkludera text, bilder, diagram och andra element.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+      </p>
+      
+      <!-- Exempel på en progress bar -->
+      <div class="progress-container">
+        <div class="progress">
+          <div class="progress-bar bg-extrovert-dark" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+            60%
+          </div>
+        </div>
+      </div>
+      
+      <p>
+        Ytterligare innehåll för att demonstrera hur sidan anpassas vid utskrift. Här kan du skriva mer text eller lägga in andra element.
+      </p>
+      
+      <!-- Exempel på en sidbrytning -->
+      <div class="page-break"></div>
+      
+      <p>
+        Innehåll på nästa sida efter en sidbrytning.
+      </p>
+    </div>
+    
+    <!-- Modalens footer (kommer att döljas vid utskrift) -->
+    <div class="modal-footer custom-modal-footer">
+      <button class="btn btn-secondary btn-close">Stäng</button>
+    </div>
+  </div>
+</body>
+</html>

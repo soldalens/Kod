@@ -1,0 +1,1268 @@
+[2025-03-07 13:09:49] Requesting chart for AnswerId: 79
+[2025-03-07 13:09:49] ✅ Chart already exists for AnswerId: 79. Skipping.
+[2025-03-07 13:09:49] Requesting chart for AnswerId: 89
+[2025-03-07 13:09:49] ✅ Chart already exists for AnswerId: 89. Skipping.
+[2025-03-07 13:09:49] Requesting chart for AnswerId: 69
+[2025-03-07 13:09:49] ✅ Chart already exists for AnswerId: 69. Skipping.
+[2025-03-07 13:09:49] Requesting chart for AnswerId: 90
+[2025-03-07 13:09:50] Response from chart_create.php for AnswerId 90: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [4,58,100,62];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 90,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:09:52] Requesting chart for AnswerId: 79
+[2025-03-07 13:09:52] ✅ Chart already exists for AnswerId: 79. Skipping.
+[2025-03-07 13:09:52] Requesting chart for AnswerId: 89
+[2025-03-07 13:09:52] ✅ Chart already exists for AnswerId: 89. Skipping.
+[2025-03-07 13:09:52] Requesting chart for AnswerId: 69
+[2025-03-07 13:09:52] ✅ Chart already exists for AnswerId: 69. Skipping.
+[2025-03-07 13:09:52] Requesting chart for AnswerId: 90
+[2025-03-07 13:09:53] Response from chart_create.php for AnswerId 90: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [4,58,100,62];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 90,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:00] ❌ ERROR: Chart not created for AnswerId: 90
+[2025-03-07 13:10:02] Requesting chart for AnswerId: 124
+[2025-03-07 13:10:02] Response from chart_create.php for AnswerId 124: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [-36,-78,36,36];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 124,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:03] ❌ ERROR: Chart not created for AnswerId: 90
+[2025-03-07 13:10:05] Requesting chart for AnswerId: 124
+[2025-03-07 13:10:05] Response from chart_create.php for AnswerId 124: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [-36,-78,36,36];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 124,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:13] ❌ ERROR: Chart not created for AnswerId: 124
+[2025-03-07 13:10:15] ❌ ERROR: Chart not created for AnswerId: 124
+[2025-03-07 13:10:17] Requesting chart for AnswerId: 84
+[2025-03-07 13:10:17] Response from chart_create.php for AnswerId 84: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [90,74,44,50];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 84,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:27] ❌ ERROR: Chart not created for AnswerId: 84
+[2025-03-07 13:10:29] Requesting chart for AnswerId: 175
+[2025-03-07 13:10:29] Response from chart_create.php for AnswerId 175: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [88,56,4,-58];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 175,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:39] ❌ ERROR: Chart not created for AnswerId: 175
+[2025-03-07 13:10:41] Requesting chart for AnswerId: 71
+[2025-03-07 13:10:41] Response from chart_create.php for AnswerId 71: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [64,-10,34,-58];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 71,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:10:51] ❌ ERROR: Chart not created for AnswerId: 71
+[2025-03-07 13:10:53] Requesting chart for AnswerId: 123
+[2025-03-07 13:10:53] Response from chart_create.php for AnswerId 123: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #F8F9FA;
+            padding: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="personalityChart"></canvas>
+</div>
+
+<script>
+    // Ensure dataValues is not redeclared
+    if (typeof window.dataValues === 'undefined') {
+        window.dataValues = [-58,18,40,-52];
+    }
+
+    if (typeof window.chartInstance !== 'undefined') {
+        window.chartInstance.destroy(); // Destroy existing chart before creating a new one
+    }
+
+    function createChart() {
+        const data = {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: window.dataValues, // Use global variable
+                backgroundColor: ["#FF9C00","#00B100","#00E2EF","#4F57FF"],
+                borderRadius: 10
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        min: -100,
+                        max: 100,
+                        grid: { display: true },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            family: 'Tahoma',
+                            size: 14
+                        },
+                        formatter: (value) => Math.abs(value) + '%',
+                        anchor: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'end';
+                            } else if (value < 0 && value >= -15) {
+                                return 'start';
+                            } else {
+                                return 'center';
+                            }
+                        },
+                        align: (context) => {
+                            const value = context.dataset.data[context.dataIndex];
+                            if (value > 15) {
+                                return 'center';
+                            } else if (value >= 0 && value <= 15) {
+                                return 'right';
+                            } else if (value < 0 && value >= -15) {
+                                return 'left';
+                            } else {
+                                return 'center';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('personalityChart');
+        if (ctx) {
+            window.chartInstance = new Chart(ctx, config);
+        } else {
+            console.error("Chart canvas not found!");
+        }
+    }
+
+    // Create chart
+    createChart();
+
+    // Function to send chart image to server
+    function saveChartToServer() {
+        const chartCanvas = document.getElementById('personalityChart');
+
+        if (!chartCanvas) {
+            console.error('Chart canvas not found!');
+            return;
+        }
+
+        const imageData = chartCanvas.toDataURL('image/png');
+
+        fetch('save_chart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                AnswerId: 123,
+                imageData: imageData
+            })
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Image saved successfully:', result);
+        })
+        .catch(error => {
+            console.error('Error saving image:', error);
+        });
+    }
+
+    // Delay slightly to ensure rendering is complete
+    setTimeout(saveChartToServer, 1000);
+</script>
+
+
+
+
+</body>
+</html>
+
+[2025-03-07 13:11:03] ❌ ERROR: Chart not created for AnswerId: 123
